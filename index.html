@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <title>WebRTC Live Video</title>
+    <style>
+        #videoContainer {
+            position: relative;
+            display: inline-block;
+        }
+        #video, #canvas {
+            width: 100%;
+            height: auto;
+        }
+
+        #camhead {
+            position: absolute;
+            top: 10px;  /* Adjust this value as needed */
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        /* Capture button inside the video container */
+        #capture {
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 10px 20px;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            width: 100px;
+            height: 100px; 
+            border-radius: 50%; 
+            background-color: #007bff;
+            display: flex;
+            align-items: center;
+            justify-content: center; 
+        }
+
+        /* Style for captured images */
+        #capturedImages {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        #canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+        #submitButton {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        #retakeButton {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    
+<div id="videoContainer">
+    <p id="camhead">Front On Number Plate</p>
+    <button id="submitButton">Submit</button>
+    <button id="retakeButton">Retake</button>
+    <video id="video" autoplay playsinline></video>
+    <div>
+        <img id="latestPhoto" onclick="imgClick()" style="width: 80px; margin-left: 20px;" alt="Latest Capture" />
+        <button id="capture"></button>
+    </div>
+</div>
+
+<div class="modal fade" id="galleryModal" tabindex="-1" aria-labelledby="galleryModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="galleryModalLabel">Enter Remark</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="capturedImages" style="display: flex; flex-wrap: wrap; gap: 10px;"></div>
+            </div>
+            <!-- <div class="modal-footer">
+                <button type="button" class="btn btn-primary" onclick="saveRemark()">Save Remark</button>
+            </div> -->
+        </div>
+    </div>
+</div>
+
+    
+    
+    <canvas id="canvas" style="display:none;"></canvas>
+    
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+        function imgClick() {
+            event.preventDefault();
+            const galleryModal = new bootstrap.Modal(document.getElementById('galleryModal'));
+            // const remarkInput = document.getElementById('remarkInput');
+
+            // remarkInput.dataset.remarkFieldId = itemName;
+
+            // document.getElementById("remarkInput").value = inputVal;
+            // document.getElementById("remarkInput").placeholder = "remark for " + itemName;
+
+            galleryModal.show();
+        }
+    </script>
+</body>
+</html>
+
+</html>
+
+
+
